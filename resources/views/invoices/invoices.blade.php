@@ -10,6 +10,8 @@
     <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <!--Internal   Notify -->
+    <link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -24,7 +26,7 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="col-lg-3" id="errorAlert">
             <div class="alert alert-danger">
                 @foreach ($errors->all() as $error)
@@ -37,9 +39,21 @@
                 $('#errorAlert').fadeOut('slow');
             }, 5000); // 5000 milliseconds means 5 seconds.
         </script>
-    @endif
+    @endif --}}
 
     {{-- notification --}}
+
+    @if (session()->has('delete_invoice'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم حذف الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+        </script>
+    @endif
+
     @if (session()->has('success'))
         <div class="col-lg-3" id="successAlert">
             <div class="alert alert-success" role="alert">
@@ -143,6 +157,12 @@
                                                             class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
                                                         الفاتورة
                                                     </a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ URL::route('Status_show', [$invoice->id]) }}"><i
+                                                            class=" text-success fas                                                                                                                                                                                                                                                                                                                                                                                                                                                                           fa-money-bill"></i>&nbsp;&nbsp;تغير
+                                                        حالة
+                                                        الدفع
+                                                    </a>
                                                 </div>
                                             </div>
 
@@ -176,8 +196,8 @@
                         <input type="hidden" name="invoice_id" id="invoice_id" value="">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                        <button type="submit" class="btn btn-danger">تاكيد</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء</button>
+                        <button type="submit" class="btn btn-success">تاكيد</button>
                     </div>
                     </form>
                 </div>
@@ -211,4 +231,25 @@
     <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
+    <!--Internal  Notify js -->
+    <script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
+
+    <script>
+        $('#delete_invoice').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var invoice_id = button.data('invoice_id')
+            var modal = $(this)
+            modal.find('.modal-body #invoice_id').val(invoice_id);
+        })
+    </script>
+
+    <script>
+        $('#Transfer_invoice').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var invoice_id = button.data('invoice_id')
+            var modal = $(this)
+            modal.find('.modal-body #invoice_id').val(invoice_id);
+        })
+    </script>
 @endsection

@@ -28,26 +28,42 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-// invoices Route
+
 Route::resource('/invoices', InvoicesController::class);
-// sections Route
+
 Route::resource('/sections', sectionsController::class);
-// products Route
+
 Route::resource('/products', ProductsController::class);
-// section Route
+
 Route::get('/section/{id}', [InvoicesController::class, "getproducts"]);
-//InvoicesDetails Route
+
 Route::get('/InvoicesDetails/{id}', [InvoicesDetailsController::class, "edit"]);
-// view invoice
+
 Route::get("/View_file/{invoice_number}/{file_name}", [InvoicesDetailsController::class, "open_file"]);
-// download invoice
+
 Route::get("/download/{invoice_number}/{file_name}", [InvoicesDetailsController::class, "download_file"]);
-// upload  new invoice
+
 Route::resource("/InvoiceAttachments", InvoiceAttachmentsController::class);
-// download invoice
+
 Route::post("/delete_file", [InvoicesDetailsController::class, "destroy"])->name("delete_file");
-// edit invoice
+
 Route::get("/edit_invoice/{id}", [InvoicesController::class, "edit"]);
+
+Route::get("/Status_show/{id}", [InvoicesController::class, "show"])->name("Status_show");
+
+Route::post("/Status_Update/{id}", [InvoicesController::class, "Status_Update"])->name('Status_Update');
+
+Route::resource("/Archive", InvoicesController::class);
+
+Route::get("/Invoice_Paid", [InvoicesController::class, "Invoice_Paid"]);
+
+Route::get("/Invoice_UnPaid", [InvoicesController::class, "Invoice_UnPaid"]);
+
+Route::get("/Invoice_Partial", [InvoicesController::class, "Invoice_Partial"]);
+
+
+
+
 
 
 

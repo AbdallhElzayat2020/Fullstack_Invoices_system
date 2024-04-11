@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             //  foreignId
             $table->foreignId("section_id")->references("id")->on("sections")->cascadeOnDelete()->cascadeOnUpdate();
+
             $table->timestamps();
         });
     }
