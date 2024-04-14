@@ -59,7 +59,7 @@
                     </li>
 
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = 'chart-flot')) }}" style="font-size: 18px">
+                        <a class="slide-item" href="{{ url('/' . ($page = 'Invoice_Paid')) }}" style="font-size: 18px">
                             الفواتير المدفوعة</a>
                     </li>
                     <li>
@@ -71,6 +71,11 @@
                             style="font-size: 18px">
                             الفواتير
                             المدفوعةجزئيا</a>
+                    </li>
+                    <li>
+                        <a class="slide-item" href="{{ url('/' . ($page = 'Archive')) }}" style="font-size: 18px">
+                            ارشيف الفواتير
+                        </a>
                     </li>
                 </ul>
             </li>

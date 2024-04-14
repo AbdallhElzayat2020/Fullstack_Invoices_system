@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\invoice_attachments;
 use App\Models\invoices;
-use App\Models\invoices_details;
 use App\Models\sections;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\invoices_details;
 use Illuminate\Support\Facades\DB;
+use App\Models\invoice_attachments;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
@@ -84,8 +84,13 @@ class InvoicesController extends Controller
             $imageName = $request->img->getClientOriginalName();
             $request->img->move(public_path('Attachments/' . $invoice_number), $imageName);
             // return back()->with('success', "تم اضافة الفاتورة بنجاح");
-            return redirect()->route("invoices.index")->with('success', "تم اضافة الفاتورة بنجاح");
         }
+
+
+
+        // Notification::send($user, new AddInvoice($invoice_id));
+
+        return redirect()->route("invoices.index")->with('success', "تم اضافة الفاتورة بنجاح");
     }
 
     /**
@@ -136,30 +141,32 @@ class InvoicesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Request $request)
     {
         $id = $request->invoice_id;
         $invoices = invoices::where('id', $id)->first();
-        $Details = invoice_attachments::where("invoice_id", $id)->first();
+        $Details = invoice_attachments::where('invoice_id', $id)->first();
 
+        $id_page = $request->id_page;
 
-        if (!empty($Details->invoice_number)) {
+        if (!$id_page == 2) {
 
-            Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
+            if (!empty($Details->invoice_number)) {
+
+                Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
+            }
+
+            $invoices->forceDelete();
+            session()->flash('delete_invoice');
+            return redirect('/invoices');
+        } else {
+
+            $invoices->delete();
+            session()->flash('archive_invoice');
+            return redirect('/Archive');
         }
-
-        $invoices->forceDelete();
-        session()->flash('delete_invoice');
-        return redirect('/invoices');
-
-        // } else {
-
-        // $invoices->delete();
-        // session()->flash('archive_invoice');
-        // return redirect('/Archive');
-
     }
-
 
     // public function getProducts($id)
     // {
@@ -216,23 +223,30 @@ class InvoicesController extends Controller
                 'user' => (Auth::user()->name),
             ]);
         }
-        session()->flash('success');
+        session()->flash('success', 'تم تغير حالة الدفع بنجاح');
         return redirect('/invoices');
     }
 
     public function Invoice_Paid()
     {
         $invoices = invoices::where("Value_Status", 1)->get();
-        return view("invoices", compact("invoices"));
+        return view("invoices.invoices_Paid", compact("invoices"));
     }
+
     public function Invoice_UnPaid()
     {
         $invoices = invoices::where("Value_Status", 2)->get();
-        return view("invoices", compact("invoices"));
+        return view("invoices.invoices_upPaid", compact("invoices"));
     }
+
     public function Invoice_Partial()
     {
         $invoices = invoices::where("Value_Status", 3)->get();
-        return view("invoices", compact("invoices"));
+        return view("invoices.invoice_Partial", compact("invoices"));
+    }
+    public function Print_invoice($id)
+    {
+        $invoices = invoices::where("id", $id)->first();
+        return view("invoices.Print_invoice", compact("invoices"));
     }
 }

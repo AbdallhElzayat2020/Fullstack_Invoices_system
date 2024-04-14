@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InvoiceAttachmentsController;
-use App\Http\Controllers\InvoicesController;
-use App\Http\Controllers\InvoicesDetailsController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\SectionsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\InvoiceArchiveController;
+use App\Http\Controllers\InvoicesDetailsController;
+use App\Http\Controllers\InvoiceAttachmentsController;
 
 /*
     |--------------------------------------------------------------------------
@@ -53,13 +54,15 @@ Route::get("/Status_show/{id}", [InvoicesController::class, "show"])->name("Stat
 
 Route::post("/Status_Update/{id}", [InvoicesController::class, "Status_Update"])->name('Status_Update');
 
-Route::resource("/Archive", InvoicesController::class);
+Route::resource("/Archive", InvoiceArchiveController::class);
 
 Route::get("/Invoice_Paid", [InvoicesController::class, "Invoice_Paid"]);
 
 Route::get("/Invoice_UnPaid", [InvoicesController::class, "Invoice_UnPaid"]);
 
 Route::get("/Invoice_Partial", [InvoicesController::class, "Invoice_Partial"]);
+
+Route::get("/Print_invoice/{id}", [InvoicesController::class, "Print_invoice"])->name("Print_invoice");
 
 
 
