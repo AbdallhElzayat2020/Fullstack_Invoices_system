@@ -31,7 +31,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles_name' => 'required'
         ]);
 
         $input = $request->all();
@@ -41,7 +41,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
+            ->with('success', 'تم اضافة المستخدم بنجاح');
     }
 
     public function show($id)
