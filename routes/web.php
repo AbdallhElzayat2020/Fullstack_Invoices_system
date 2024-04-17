@@ -30,6 +30,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::middleware('auth')->group(function () {
+    // Our resource routes
+    Route::resource('roles', RoleController::class);
+
+    Route::resource('users', UserController::class);
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('/invoices', InvoicesController::class);
@@ -70,12 +77,6 @@ Route::get("/Print_invoice/{id}", [InvoicesController::class, "Print_invoice"])-
 
 //permission
 
-Route::middleware('auth')->group(function () {
-    // Our resource routes
-    Route::resource('roles', RoleController::class);
-
-    Route::resource('users', UserController::class);
-});
 
 
 
