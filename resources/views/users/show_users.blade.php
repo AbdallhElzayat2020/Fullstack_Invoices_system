@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-    المستخدمين - مورا سوفت للادارة الفواتير
+    المستخدمين
 @stop
 
 <!-- Internal Data table css -->
@@ -62,7 +62,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $i => $user)
+                            @foreach ($data as $key => $user)
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $user->name }}</td>
@@ -119,8 +119,8 @@
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form action="{{ route('users.destroy', 'test') }}" method="post">
-                    @method('delete')
-                    @csrf
+                    {{ method_field('delete') }}
+                    {{ csrf_field() }}
                     <div class="modal-body">
                         <p>هل انت متاكد من عملية الحذف ؟</p><br>
                         <input type="hidden" name="user_id" id="user_id" value="">

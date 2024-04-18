@@ -169,9 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // Maatwebsite\Excel\ExcelServiceProvider::class,
 
-        Spatie\Permission\PermissionServiceProvider::class,
+        // Spatie\Permission\PermissionServiceProvider::class,
         //11111
         Maatwebsite\Excel\ExcelServiceProvider::class,
 

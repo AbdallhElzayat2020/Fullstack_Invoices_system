@@ -84,7 +84,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roles as $i => $role)
+                            @foreach ($roles as $key => $role)
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $role->name }}</td>
@@ -101,12 +101,9 @@
 
                                         @if ($role->name !== 'owner')
                                             @can('حذف صلاحية')
-                                                <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
-                                                    style="display:inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">حذف</button>
-                                                </form>
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
+                                                {!! Form::submit('حذف', ['class' => 'btn btn-danger btn-sm']) !!}
+                                                {!! Form::close() !!}
                                             @endcan
                                         @endif
 
