@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id', 'DESC')->paginate(5);
+        $data = \App\User::orderBy('id', 'DESC')->paginate(5);
         return view('users.show_users', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
 
         $input['password'] = Hash::make($input['password']);
 
-        $user = User::create($input);
+        $user = \App\User::create($input);
         $user->assignRole($request->input('roles_name'));
         return redirect()->route('users.index')
             ->with('success', 'تم اضافة المستخدم بنجاح');
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = \App\User::find($id);
         return view('users.show', compact('user'));
     }
     /**
@@ -81,7 +81,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = \App\User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
         return view('users.edit', compact('user', 'roles', 'userRole'));
@@ -107,7 +107,7 @@ class UserController extends Controller
         } else {
             $input = array_except($input, array('password'));
         }
-        $user = User::find($id);
+        $user = \App\User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
         $user->assignRole($request->input('roles'));
@@ -122,7 +122,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        User::find($request->user_id)->delete();
+        \App\User::find($request->user_id)->delete();
         return redirect()->route('users.index')->with('success', 'تم حذف المستخدم بنجاح');
     }
 }

@@ -27,19 +27,19 @@
 @endsection
 @section('content')
     {{-- @if ($errors->any())
-        <div class="col-lg-3" id="errorAlert">
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <a class="text-dark">{{ $error }} <br /> </a>
-                @endforeach
-            </div>
-        </div>
-        <script>
-            setTimeout(function() {
+<div class="col-lg-3" id="errorAlert">
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        <a class="text-dark">{{ $error }} <br /> </a>
+        @endforeach
+    </div>
+</div>
+<script>
+    setTimeout(function() {
                 $('#errorAlert').fadeOut('slow');
             }, 5000); // 5000 milliseconds means 5 seconds.
-        </script>
-    @endif --}}
+</script>
+@endif --}}
 
     {{-- notification --}}
 
@@ -156,7 +156,8 @@
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
                                                     class="btn ripple btn-primary" data-toggle="dropdown"
-                                                    type="button">العمليات <i class="fas fa-caret-down ml-1"></i></button>
+                                                    type="button">العمليات
+                                                    <i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
                                                         href=" {{ url('edit_invoice') }}/{{ $invoice->id }}">تعديل
@@ -168,8 +169,8 @@
                                                         الفاتورة
                                                     </a>
                                                     <a class="dropdown-item"
-                                                        href="{{ URL::route('Status_show', [$invoice->id]) }}"><i
-                                                            class=" text-success fas                                                                                                                                                                                                                                                                                                                                                                                                                                                                           fa-money-bill"></i>&nbsp;&nbsp;تغير
+                                                        href="{{ URL::route('Status_show', [$invoice->id]) }}">
+                                                        <i class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;تغير
                                                         حالة
                                                         الدفع
                                                     </a>

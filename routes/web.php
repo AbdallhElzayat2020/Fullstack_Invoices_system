@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\invoices;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -29,6 +30,8 @@ Auth::routes();
 Route::get('/', function () {
     return view('auth.login');
 });
+
+//permission
 
 Route::middleware('auth')->group(function () {
     // Our resource routes
@@ -73,9 +76,9 @@ Route::get("/Invoice_Partial", [InvoicesController::class, "Invoice_Partial"]);
 
 Route::get("/Print_invoice/{id}", [InvoicesController::class, "Print_invoice"])->name("Print_invoice");
 
+Route::get('export_invoices', [InvoicesController::class, 'export']);
 
 
-//permission
 
 
 

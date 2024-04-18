@@ -50,7 +50,8 @@
                 </div><br>
                 <form class="parsley-style-1" id="selectForm2" autocomplete="off" name="selectForm2"
                     action="{{ route('users.store', 'test') }}" method="post">
-                    @csrf
+                    {{ csrf_field() }}
+
                     <div class="">
 
                         <div class="row mg-b-20">
@@ -99,11 +100,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="form-group">
                                 <label class="form-label"> صلاحية المستخدم</label>
-                                <select name="roles_name[]" class="form-control" multiple>
-                                    @foreach ($roles as $role => $roleName)
-                                        <option value="{{ $role }}">{{ $roleName }}</option>
-                                    @endforeach
-                                </select>
+                                {!! Form::select('roles_name[]', $roles, [], ['class' => 'form-control', 'multiple']) !!}
                             </div>
                         </div>
                     </div>
