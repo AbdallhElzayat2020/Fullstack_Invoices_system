@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-
     public function index(Request $request)
     {
         $data = User::latest()->paginate(5);
-        return view('users.index', compact('data'));
+
+        return view('users.show_users', compact('data'));
     }
 
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
+
         return view('users.create', compact('roles'));
     }
 
@@ -31,7 +31,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
 
         $input = $request->all();
@@ -47,6 +47,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+
         return view('users.show', compact('user'));
     }
 
@@ -63,16 +64,16 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
 
         $input = $request->all();
-        if (!empty($input['password'])) {
+        if (! empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
         } else {
-            $input = Arr::except($input, array('password'));
+            $input = Arr::except($input, ['password']);
         }
 
         $user = User::find($id);
@@ -88,6 +89,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }

@@ -86,7 +86,7 @@
                         <tbody>
                             @foreach ($roles as $key => $role)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         @can('عرض صلاحية')

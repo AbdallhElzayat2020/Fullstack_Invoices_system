@@ -14,8 +14,7 @@
     <div class="my-auto">
         <div class="d-flex">
             <h4 class="content-title mb-0 my-auto">المستخدمين</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ اضافة
-                مستخدم
-            </span>
+                مستخدم</span>
         </div>
     </div>
 </div>
@@ -29,7 +28,7 @@
     <div class="col-lg-12 col-md-12">
 
         @if (count($errors) > 0)
-            <div sr class="alert alert-danger">
+            <div class="alert alert-danger">
                 <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>

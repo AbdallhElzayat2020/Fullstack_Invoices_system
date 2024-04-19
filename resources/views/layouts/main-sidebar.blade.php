@@ -132,7 +132,8 @@
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'users')) }}">قائمة المستخدمين</a>
                     </li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'roles')) }}">صلاحيات
-                            المستخدمين</a>
+                            المستخدمين
+                        </a>
                     </li>
                 </ul>
             </li>
