@@ -3,7 +3,7 @@
     <!--Internal   Notify -->
     <link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 @section('title')
-    صلاحيات المستخدمين - مورا سوفت للادارة القانونية
+    صلاحيات المستخدمين
 @stop
 
 
@@ -64,9 +64,9 @@
                 <div class="d-flex justify-content-between">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            {{-- @can('اضافة صلاحية') --}}
-                            <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">اضافة</a>
-                            {{-- @endcan --}}
+                            @can('اضافة صلاحية')
+                                <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">اضافة</a>
+                            @endcan
                         </div>
                     </div>
                     <br>
@@ -99,7 +99,7 @@
                                                 href="{{ route('roles.edit', $role->id) }}">تعديل</a>
                                         @endcan
 
-                                        @if ($role->name !== 'owner')
+                                        @if ($role->name !== 'Admin')
                                             @can('حذف صلاحية')
                                                 {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
                                                 {!! Form::submit('حذف', ['class' => 'btn btn-danger btn-sm']) !!}

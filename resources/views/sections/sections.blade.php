@@ -74,8 +74,12 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <div class="col-lg-1">
-                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                                data-toggle="modal" href="#modaldemo8">اضافة قسم</a>
+                            @can('اضافة قسم')
+                                <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+                                    data-toggle="modal" href="#modaldemo8">اضافة قسم
+                                </a>
+                            @endcan
+
                         </div>
                     </div>
                 </div>
@@ -97,19 +101,25 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $section->section_name }}</td>
                                         <td>{{ $section->description }}</td>
-                                        <td>
+                                         <td>
+                                            @can('تعديل قسم')
+
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
                                                 data-id="{{ $section->id }}"
                                                 data-section_name="{{ $section->section_name }}"
                                                 data-description="{{ $section->description }}" data-toggle="modal"
                                                 href="#exampleModal2" title="تعديل"><i class="las la-pen"></i>
                                             </a>
-
+                                            
+                                            @endcan
+                                            @can('حذف قسم')
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                 data-id="{{ $section->id }}"
                                                 data-section_name="{{ $section->section_name }}" data-toggle="modal"
                                                 href="#modaldemo9" title="حذف"><i class="las la-trash"></i>
                                             </a>
+@endcan
+                                            
                                         </td>
                                     </tr>
                                 @endforeach

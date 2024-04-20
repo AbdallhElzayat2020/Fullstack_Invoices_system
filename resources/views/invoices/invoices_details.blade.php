@@ -145,11 +145,6 @@
                                                             @endif
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row">تم اضافة بواسطة</th>
-                                                            <td>
-                                                                <span
-                                                                    style="font-weight: bold">{{ Auth::user()->name }}</span>
-                                                            </td>
                                                             <th scope="row">ملاحظات</th>
                                                             <td>{{ $invoices->note }}</td>
                                                         </tr>

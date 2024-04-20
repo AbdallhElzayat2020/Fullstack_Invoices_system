@@ -36,4 +36,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+      protected function credentials(\Illuminate\Http\Request $request)
+    {
+        //check if ststus is active
+        return ['email' => $request->email, 'password' => $request->password, 'status' => 'مفعل'];
+    }
 }
+
