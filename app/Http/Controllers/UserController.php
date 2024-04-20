@@ -83,7 +83,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles_name'));
 
         return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+            ->with('success', 'تم تحديث المستخدم بنجاح');
     }
 
     public function destroy($id)

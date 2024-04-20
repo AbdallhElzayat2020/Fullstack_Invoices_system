@@ -31,10 +31,17 @@
 
 @section('content')
 
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+@if (session()->has('success'))
+    <div class="col-lg-3" id="successAlert">
+        <div class="alert alert-success" role="alert">
+            {{ session()->get('success') }}
+        </div>
     </div>
+    <script>
+        setTimeout(function() {
+            document.getElementById('successAlert').style.display = 'none';
+        }, 4000);
+    </script>
 @endif
 
 <!-- row opened -->

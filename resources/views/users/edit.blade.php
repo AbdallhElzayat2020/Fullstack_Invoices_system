@@ -3,7 +3,7 @@
     <!-- Internal Nice-select css  -->
     <link href="{{ URL::asset('assets/plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet" />
 @section('title')
-    تعديل مستخدم - مورا سوفت للادارة القانونية
+    تعديل مستخدم
 @stop
 
 
@@ -91,7 +91,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>نوع المستخدم</strong>
-                            {!! Form::select('roles[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
+                            {!! Form::select('roles_name[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
                         </div>
                     </div>
                 </div>
