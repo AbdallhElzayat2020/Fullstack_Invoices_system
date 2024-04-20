@@ -69,7 +69,8 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if ($user->Status == 'مفعل')
-                                            <span class="label text-success d-flex">
+                                            <span class="label text-success  text-center  d-flex "
+                                                style="font-size: 18px">
                                                 <div class="dot-label bg-success ml-1"></div>{{ $user->Status }}
                                             </span>
                                         @else

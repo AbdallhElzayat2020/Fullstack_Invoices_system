@@ -31,7 +31,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required',
+            'roles_name' => 'required',
         ]);
 
         $input = $request->all();
@@ -41,7 +41,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
+            ->with('success', 'تم اضافة المستخدم بنجاح');
     }
 
     public function show($id)
@@ -57,7 +57,7 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('users.edit', compact('user', 'roles', 'userRole'));
+        return view('users.edit', compact('user', 'roles', 'userRole'))->with('success', 'تم تعديل المستخدم بنجاح');
     }
 
     public function update(Request $request, $id)
@@ -66,7 +66,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required',
+            'roles_name' => 'required',
         ]);
 
         $input = $request->all();
@@ -80,7 +80,7 @@ class UserController extends Controller
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
-        $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles_name'));
 
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
@@ -91,6 +91,6 @@ class UserController extends Controller
         User::find($id)->delete();
 
         return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+            ->with('success', 'تم حذف المستخدم بنجاح');
     }
 }

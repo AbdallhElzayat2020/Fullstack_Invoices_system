@@ -50,8 +50,7 @@
                 </div><br>
                 <form class="parsley-style-1" id="selectForm2" autocomplete="off" name="selectForm2"
                     action="{{ route('users.store', 'test') }}" method="post">
-                    {{ csrf_field() }}
-
+                    @csrf
                     <div class="">
 
                         <div class="row mg-b-20">
@@ -113,6 +112,7 @@
     </div>
 </div>
 <!-- row closed -->
+resources/views/users/create.blade.php
 </div>
 <!-- Container closed -->
 </div>

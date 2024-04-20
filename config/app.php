@@ -169,10 +169,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
         // Spatie\Permission\PermissionServiceProvider::class,
         //11111
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ])->toArray(),
 
@@ -193,7 +193,8 @@ return [
         // 'Example' => App\Facades\Example::class,
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ])->toArray(),
 
 ];
