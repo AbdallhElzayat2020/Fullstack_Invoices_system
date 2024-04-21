@@ -74,6 +74,6 @@ Route::get('/Invoice_Partial', [InvoicesController::class, 'Invoice_Partial']);
 Route::get('/Print_invoice/{id}', [InvoicesController::class, 'Print_invoice'])->name('Print_invoice');
 
 Route::get('export_invoices', [InvoicesController::class, 'export']);
-Route::get('invoices_report', [Invoices_Report::class, "index"] );
-Route::get('search_invoices', [Invoices_Report::class, "index"] );
+Route::get('invoices_report', [Invoices_Report::class, 'index']);
+Route::post('search_invoices', [Invoices_Report::class, 'search_invoices']);
 Route::get('/{page}', [AdminController::class, 'index']);

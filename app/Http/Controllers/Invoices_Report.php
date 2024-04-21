@@ -2,68 +2,59 @@
 
 namespace App\Http\Controllers;
 
+// use App\Http\invoices;
+
+use App\Models\invoices;
 use Illuminate\Http\Request;
 
 class Invoices_Report extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('reports.invoices_report');
     }
 
-    public function search_invoices()
+    public function Search_invoices(Request $request)
     {
+        $rdio = $request->rdio;
+        // في حالة البحث بنوع الفاتورة
+        if ($rdio == 1) {
+            // في حالة عدم تحديد تاريخ
+            if ($request->type && $request->start_at == '' && $request->end_at == '') {
+                $invoices = invoices::select('*')->where('Status', '=', $request->type)->get();
+                $type = $request->type;
 
-    }
+                return view('reports.invoices_report', compact('type'))->withDetails($invoices);
+            }
+            // في حالة تحديد تاريخ استحقاق
+            else {
+                $start_at = date($request->start_at);
+                $end_at = date($request->end_at);
+                if ($start_at > $end_at) {
+                    return back()->withErrors(['error' => 'تاريخ البداية يجب أن يكون قبل تاريخ النهاية.']);
+                } else {
+                    $type = $request->type;
+                    $invoices = invoices::whereBetween('invoice_Date', [$start_at, $end_at])->where('Status', '=', $request->type)->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+                    return view('reports.invoices_report', compact('type', 'start_at', 'end_at'))->withDetails($invoices);
+                }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+            }
 
-    }
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
+        //====================================================================
 
-    }
+        // في البحث برقم الفاتورة
+        else {
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            $invoices = invoices::select('*')->where('invoice_number', '=', $request->invoice_number)->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
+            return view('reports.invoices_report')->withDetails($invoices);
+            // return view('reports.invoices_report', ['details' => $invoices]);
 
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        }
+
     }
 }

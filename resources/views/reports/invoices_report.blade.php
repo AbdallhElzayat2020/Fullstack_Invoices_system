@@ -55,7 +55,8 @@
 
             <div class="card-header pb-0">
 
-                <form action="/Search_invoices" method="POST" role="search" autocomplete="off">
+                <form action="/search_invoices" method="POST" role="search" autocomplete="off">
+                    {{-- @method('post') --}}
                     @csrf
                     <div class="col-lg-3">
                         <label class="rdiobox">
@@ -79,7 +80,7 @@
                                     {{ $type ?? 'حدد نوع الفواتير' }}
                                 </option>
 
-                                <option value="الكل">كل الفواتير</option>
+                                {{-- <option value="الكل">كل الفواتير</option> --}}
                                 <option value="مدفوعة">الفواتير المدفوعة</option>
                                 <option value="غير مدفوعة">الفواتير الغير مدفوعة</option>
                                 <option value="مدفوعة جزئيا">الفواتير المدفوعة جزئيا</option>
@@ -241,9 +242,7 @@
 
 <script>
     $(document).ready(function() {
-
         $('#invoice_number').hide();
-
         $('input[type="radio"]').click(function() {
             if ($(this).attr('id') == 'type_div') {
                 $('#invoice_number').hide();
