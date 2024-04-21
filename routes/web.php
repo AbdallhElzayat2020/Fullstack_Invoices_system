@@ -1,18 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\customers_report;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceArchiveController;
+use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\Invoices_Report;
 use App\Http\Controllers\InvoicesController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\SectionsController;
-use App\Http\Controllers\InvoiceArchiveController;
 use App\Http\Controllers\InvoicesDetailsController;
-use App\Http\Controllers\InvoiceAttachmentsController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
     |--------------------------------------------------------------------------
@@ -74,6 +75,13 @@ Route::get('/Invoice_Partial', [InvoicesController::class, 'Invoice_Partial']);
 Route::get('/Print_invoice/{id}', [InvoicesController::class, 'Print_invoice'])->name('Print_invoice');
 
 Route::get('export_invoices', [InvoicesController::class, 'export']);
+
 Route::get('invoices_report', [Invoices_Report::class, 'index']);
+
 Route::post('search_invoices', [Invoices_Report::class, 'search_invoices']);
+//---
+Route::get('customers_report', [customers_report::class, 'index']);
+
+Route::post('search_customers', [customers_report::class, 'search_customers']);
+//---
 Route::get('/{page}', [AdminController::class, 'index']);

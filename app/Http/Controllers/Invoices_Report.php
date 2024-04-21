@@ -30,7 +30,7 @@ class Invoices_Report extends Controller
             else {
                 $start_at = date($request->start_at);
                 $end_at = date($request->end_at);
-                if ($start_at > $end_at) {
+                if ($start_at <= $end_at) {
                     return back()->withErrors(['error' => 'تاريخ البداية يجب أن يكون قبل تاريخ النهاية.']);
                 } else {
                     $type = $request->type;
