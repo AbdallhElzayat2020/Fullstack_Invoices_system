@@ -32,7 +32,7 @@ class Invoices_Report extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -40,7 +40,7 @@ class Invoices_Report extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -56,7 +56,7 @@ class Invoices_Report extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
