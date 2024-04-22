@@ -52,7 +52,6 @@
     <div class="col-xl-12">
         <div class="card mg-b-20">
 
-
             <div class="card-header pb-0">
 
                 <form action="/search_customers" method="POST" role="search" autocomplete="off">
@@ -77,8 +76,6 @@
                             <select id="product" name="product" class="form-control select2">
                             </select>
                         </div>
-
-
                         <div class="col-lg-3" id="start_at">
                             <label for="exampleFormControlSelect1">من تاريخ</label>
                             <div class="input-group">
