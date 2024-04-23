@@ -27,6 +27,7 @@ class HomeController extends Controller
         $totalInvoices = number_format(invoices::sum('Total'), 2);
         //Count of invoices
         $invoicesCount = invoices::count();
+
         ///////////////////////////////////
         //total of invoicesNotPay
         $invoicesNotPay = invoices::where('Value_Status', '2')->sum('Total');
@@ -50,6 +51,39 @@ class HomeController extends Controller
         /* PayInvoices / countTotal Invoices *100  */
         $percentPartiallypaid = round($CountPartiallypaid / $invoicesCount * 100, 2);
 
+        // chart
+        $chartjs = app()->chartjs
+            ->name('pieChartTest')
+            ->type('pie')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels(['فواتير المدفوعة ', 'الفواتير غير مدفوعة ', 'الفواتير المدفوعة جزئيا']) // Added 'Label z' to match the number of colors and data points
+            ->datasets([
+                [
+                    'backgroundColor' => ['#008000', '#FF0000', '#FFA500'],
+                    'hoverBackgroundColor' => ['#008000', '#FF0000', '#FFA500'],
+                    'data' => [$percentPay, $percentNotPay, $percentPartiallypaid], // Added a third data point to match the number of colors
+                ],
+            ])
+            ->options([]);
+        $chartjs2 = app()->chartjs
+            ->name('barChartTest')
+            ->type('bar')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels(['احصائيات الزوار لشهر يناير ', 'احضائيات الزوار لشهر فبراير'])
+            ->datasets([
+                [
+                    'label' => 'احصائيات الزوار لشهر يناير ',
+                    'backgroundColor' => ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                    'data' => [69, 59],
+                ],
+                [
+                    'label' => 'احصائيات الزوار لشهر فبراير ',
+                    'backgroundColor' => ['rgba(255, 99, 132, 0.3)', 'rgba(54, 162, 235, 0.3)'],
+                    'data' => [65, 12],
+                ],
+            ])
+            ->options([]);
+
         return view('home', compact(
             'totalInvoices',
             'invoicesCount',
@@ -61,7 +95,9 @@ class HomeController extends Controller
             'percentPay',
             'CountPartiallypaid',
             'SumPartiallypaid',
-            'percentPartiallypaid'
+            'percentPartiallypaid',
+            'chartjs',
+            'chartjs2'
         ));
     }
 }
